@@ -1,10 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Accueil from "./component/Accueil.js";
+import Menu from "./component/Menu.js";
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Oui oui pd!</Text>
+      <Accueil></Accueil>
+      <Menu></Menu>
       <StatusBar style="auto" />
     </View>
   );

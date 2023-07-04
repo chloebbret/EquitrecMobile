@@ -1,13 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Classement from "./component/Classement";
+
+import Accueil from "./component/Accueil.js";
+import Menu from "./component/Menu.js";
+import InfosCompet from "./component/InfosCompet.js";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <View style={styles.container}>
+        {/*<Accueil></Accueil>*/}
+        {/*  <InfosCompet></InfosCompet>*/}
+        <StatusBar style="auto" />
+      </View>
   );
 }
 
@@ -15,7 +19,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

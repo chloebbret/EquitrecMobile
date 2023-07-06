@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "EquitrecMobile",
-    "slug": "EquitrecMobile",
+    "name": "equitrecMobile",
+    "slug": "equitrecMobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.equitrecMobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

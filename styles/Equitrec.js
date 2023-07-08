@@ -22,5 +22,8 @@ export const equitrecStyle = StyleSheet.create({
   },
   defaultTopMargin: {
     marginTop: 100,
+  },
+  alignItemsCenter: {
+    alignItems: 'center'
   }
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
-import {equitrecStyle} from "../../styles/Equitrec";
+import {equitrecStyle} from "../../global/style/Equitrec";
 import Logo from "../../assets/svg/logo.svg";
 import CButton from "../elements/CButton";
-import * as RootNavigation from "../../helpers/RootNavigation";
+import * as RootNavigation from "../../global/nvaigation/RootNavigation";
 
 export default function Connexion() {
   return (

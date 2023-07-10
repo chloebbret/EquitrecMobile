@@ -28,7 +28,6 @@ async function createTables() {
       console.log("Error creating tables:", error);
       reject(error);
     }, () => {
-      console.log("Tables were created successfully!");
       resolve();
     });
   });
@@ -84,9 +83,8 @@ function getRiderFullName(riderId) {
         'SELECT * FROM Rider WHERE id = ?',
         [riderId],
         (_, {rows}) => {
-          const {bib_number, surname, name} = rows.item(0);
-          const fullName = `#${bib_number} ${surname} ${name}`;
-          resolve(fullName);
+          const rider = rows.item(0);
+          resolve(getRiderFullNameString(rider));
         },
         (_, error) => {
           reject(error);
@@ -255,9 +253,32 @@ function insertCompetitionObstacle(competitionId, obstacleId) {
   });
 }
 
+function isDatabaseEmpty() {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT COUNT(*) AS count FROM Judge',
+        [],
+        (_, {rows}) => {
+          const {count} = rows.item(0);
+          resolve(count === 0);
+        },
+        (_, error) => {
+          reject(error);
+        }
+      );
+    });
+  });
+}
+
+function getRiderFullNameString(rider) {
+  return `#${rider.bib_number} - ${rider.name} ${rider.surname}`;
+}
+
 export default {
   createTables,
   emptyDatabase,
+  isDatabaseEmpty,
   getJudgeFullName,
   getRiderFullName,
   getJudgeCompetitionCount,
@@ -268,5 +289,6 @@ export default {
   insertLevel,
   insertObstacle,
   insertCompetition,
-  insertCompetitionObstacle
+  insertCompetitionObstacle,
+  getRiderFullNameString
 };

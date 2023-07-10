@@ -6,30 +6,28 @@ import {useFonts} from "expo-font";
 import QRCode from "./components/views/QRCode";
 import {useEffect, useState} from "react";
 import CDatabase from "./global/storage/CDatabase";
-import {Text, View} from "react-native";
+import Accueil from "./components/views/Accueil";
+import SelectionCavalier from "./components/views/SelectionCavalier";
 
 const Drawer = createDrawerNavigator();
 
 /* Initialisation de la base de données ! */
 const initDatabase = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     CDatabase.createTables()
-      .then(() => CDatabase.emptyDatabase())
       .then(() => {
-        console.log("Initialization phase done !");
-        resolve(true); // Resolve with true to indicate successful initialization
+        resolve(true);
       })
       .catch(error => {
-        console.error("Database initialization error:", error);
-        resolve(false); // Resolve with false to indicate initialization failure
+        resolve(false);
       });
   });
 };
 
-
 export default function App() {
 
   const [isDatabaseLoaded, setIsDatabaseLoaded] = useState(false);
+
   const [loaded] = useFonts({
     'Gluten-Medium': require('./assets/fonts/Gluten-Medium.ttf'),
     'Gluten-Regular': require('./assets/fonts/Gluten-Regular.ttf'),
@@ -39,24 +37,19 @@ export default function App() {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        console.log("LOADING DB ...");
         const databaseInitialized = await initDatabase();
         setIsDatabaseLoaded(databaseInitialized);
       } catch (error) {
         console.error("App initialization error:", error);
-        setIsDatabaseLoaded(false);
       }
     };
 
-    initializeApp();
+    initializeApp()
+      .catch(err => console.log(err));
   }, []);
 
   if (!loaded || !isDatabaseLoaded) {
-    return (
-      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-        <Text>Chargement ...</Text>
-      </View>
-    );
+    return;
   }
 
   return (
@@ -67,6 +60,8 @@ export default function App() {
       }}>
         <Drawer.Screen name="Connexion" component={Connexion}/>
         <Drawer.Screen name="QRCode" component={QRCode}/>
+        <Drawer.Screen name="Accueil" component={Accueil}/>
+        <Drawer.Screen name="SelectionCavalier" component={SelectionCavalier}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -78,19 +78,10 @@ export default function QRCode({route}) {
       }
 
       console.log("Successfully imported all data !");
-
-      let judge = await CDatabase.getJudgeFullName(0);
-      let competitionCount = await CDatabase.getJudgeCompetitionCount(0);
-      let ridersForJudge = await CDatabase.getRidersForJudge(0);
-
-      const riderNames = ridersForJudge.map(rider => `${rider.name} ${rider.surname}`);
-
-      console.log(`Le juge ${judge} doit faire passer ${competitionCount} épreuves aujourd'hui avec les cavaliers : ${riderNames.join(', ')}`);
-
     } catch (error) {
       console.log(error);
     } finally {
-      RootNavigation.navigate('Connexion');
+      RootNavigation.navigate('Accueil');
     }
   };
 

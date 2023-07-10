@@ -25,5 +25,12 @@ export const equitrecStyle = StyleSheet.create({
   },
   alignItemsCenter: {
     alignItems: 'center'
+  },
+  list: {
+    backgroundColor: '#F5F5F5',
+    maxHeight: 200,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    width: "80%"
   }
 });

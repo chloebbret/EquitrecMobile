@@ -5,26 +5,30 @@ import CButton from "../elements/CButton";
 import * as RootNavigation from "../../global/nvaigation/RootNavigation";
 import CFlatList from "../elements/CFlatList";
 import CDatabase from "../../global/storage/CDatabase";
-import {useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import CListItem from "../elements/CListItem";
+import {useFocusEffect} from "@react-navigation/native";
 
 export default function SelectionCavalier() {
 
   const [riders, setRiders] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const riders = await CDatabase.getRidersForJudge(0);
-        setRiders(riders.map((rider) => CDatabase.getRiderFullNameString(rider)));
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchData()
-      .catch(err => console.log(err));
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const riders = await CDatabase.getRidersForJudge(0);
+          setRiders(riders.map((rider) => CDatabase.getRiderFullNameString(rider)));
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchData()
+        .catch(err => console.log(err));
+    }, [])
+  );
 
   return (
     <View style={[equitrecStyle.container, {gap: 90}]}>

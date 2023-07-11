@@ -6,6 +6,21 @@ import Logo from "../../assets/svg/logo.svg";
 import CButton from "../elements/CButton";
 import * as RootNavigation from "../../global/nvaigation/RootNavigation";
 
+const emptyDatabase = () => {
+  return new Promise(async () => {
+    await CDatabase.emptyDatabase()
+      .then(async () => {
+        console.log("Creating tables ...");
+        await CDatabase.createTables();
+      })
+      .then(() => {
+        console.log("Navigating ...");
+        RootNavigation.navigate('Connexion');
+      })
+      .catch(err => console.log(err));
+  });
+};
+
 export default function Accueil() {
 
   const [judgeFullName, setJudgeFullName] = useState('');
@@ -45,8 +60,8 @@ export default function Accueil() {
                  onPress={() => RootNavigation.navigate('SelectionCavalier')} imageSrc={
           require("../../assets/img/play-button.png")
         }/>
-        <CButton secondary text="[DEBUG] Reset Database"
-                 onPress={() => CDatabase.emptyDatabase().then(() => RootNavigation.navigate('Connexion'))}/>
+        <CButton debug text="[DEBUG] Reset Database"
+                 onPress={() => emptyDatabase()}/>
       </View>
     </View>
   )

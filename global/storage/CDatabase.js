@@ -37,12 +37,13 @@ async function createTables() {
 function emptyDatabase() {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
-      tx.executeSql('DELETE FROM Judge', [], null, handleTransactionError);
-      tx.executeSql('DELETE FROM Rider', [], null, handleTransactionError);
-      tx.executeSql('DELETE FROM Level', [], null, handleTransactionError);
-      tx.executeSql('DELETE FROM Obstacle', [], null, handleTransactionError);
-      tx.executeSql('DELETE FROM Competition', [], null, handleTransactionError);
-      tx.executeSql('DELETE FROM Competition_Obstacle', [], null, handleTransactionError);
+      console.log("Removing tables, clearing data!");
+      tx.executeSql('DROP TABLE IF EXISTS Judge', [], null, handleTransactionError);
+      tx.executeSql('DROP TABLE IF EXISTS Rider', [], null, handleTransactionError);
+      tx.executeSql('DROP TABLE IF EXISTS Level', [], null, handleTransactionError);
+      tx.executeSql('DROP TABLE IF EXISTS Obstacle', [], null, handleTransactionError);
+      tx.executeSql('DROP TABLE IF EXISTS Competition', [], null, handleTransactionError);
+      tx.executeSql('DROP TABLE IF EXISTS Competition_Obstacle', [], null, handleTransactionError);
     }, handleTransactionError, handleTransactionSuccess);
 
     function handleTransactionError(_, error) {
@@ -84,6 +85,7 @@ function getRiderFullName(riderId) {
         [riderId],
         (_, {rows}) => {
           const rider = rows.item(0);
+          console.log(rider);
           resolve(getRiderFullNameString(rider));
         },
         (_, error) => {

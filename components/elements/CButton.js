@@ -2,15 +2,15 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text} from 'react-native';
 import * as Equitrec from "../../global/style/Equitrec";
 
-let secondary;
+let debug;
 
-const CButton = ({text, imageSrc, onPress, secondary}) => {
+const CButton = ({text, imageSrc, onPress, debug}) => {
 
-  this.secondary = secondary;
+  this.debug = debug;
 
   return (
     <Pressable
-      style={[styles.button, {backgroundColor: this.secondary !== undefined ? Equitrec.secondaryColor : Equitrec.primaryColor}]}
+      style={[styles.button, {backgroundColor: this.debug !== undefined ? Equitrec.debugColor : Equitrec.primaryColor}]}
       onPress={onPress}>
       {imageSrc &&
         <Image

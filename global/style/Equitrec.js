@@ -2,6 +2,7 @@ import {StyleSheet} from "react-native";
 
 export const primaryColor = '#74C5FF';
 export const secondaryColor = '#688EB4';
+export const debugColor = '#ED3434';
 
 export const equitrecStyle = StyleSheet.create({
   container: {

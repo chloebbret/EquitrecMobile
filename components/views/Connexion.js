@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {equitrecStyle} from "../../global/style/Equitrec";
@@ -6,7 +6,7 @@ import Logo from "../../assets/svg/logo.svg";
 import CButton from "../elements/CButton";
 import * as RootNavigation from "../../global/nvaigation/RootNavigation";
 import CDatabase from "../../global/storage/CDatabase";
-import {useIsFocused} from "@react-navigation/native";
+import {useFocusEffect, useIsFocused} from "@react-navigation/native";
 
 const checkDatabaseData = () => {
   return new Promise((resolve) => {
@@ -24,25 +24,26 @@ export default function Connexion() {
   const [isDatabaseEmpty, setDatabaseEmpty] = useState(true);
   const isFocused = useIsFocused();
 
-  useEffect(() => {
-    const initializeConnexion = async () => {
-      try {
-        const databaseInitialized = await checkDatabaseData();
-        setDatabaseEmpty(databaseInitialized);
-      } catch (error) {
-        console.error("App initialization error:", error);
-      }
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const initializeConnexion = async () => {
+        try {
+          const databaseInitialized = await checkDatabaseData();
+          setDatabaseEmpty(databaseInitialized);
+        } catch (error) {
+          console.error("App initialization error:", error);
+        }
+      };
 
-    initializeConnexion()
-      .catch(err => console.log(err));
-  }, []);
+      initializeConnexion()
+        .catch(err => console.log(err));
+    }, []));
 
   useEffect(() => {
     if (!isDatabaseEmpty && isFocused) {
       RootNavigation.navigate('Accueil');
     }
-  }, [isDatabaseEmpty]);
+  }, [isDatabaseEmpty, isFocused]);
 
   if (!isDatabaseEmpty || !isFocused) {
     return null;
